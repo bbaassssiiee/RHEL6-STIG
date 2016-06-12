@@ -80,10 +80,10 @@
 
 - name: "HIGH | V-38491 | AUDIT | There must be no .rhosts files on the system"
   stat:
-      path: ~{{ item }}/.rhosts
+      path: ~"{{ item }}"/.rhosts
   register: rhosts_audit
   always_run: yes
-  with_items: users.stdout_lines
+  with_items: "{{ users.stdout_lines }}"
   tags:
       - cat1
       - high
@@ -94,8 +94,8 @@
 - name: "HIGH | V-38491 | PATCH | There must be no .rhosts files on the system"
   file:
     state: absent
-    dest: ~{{ item }}/.rhosts
-  with_items: users.stdout_lines
+    dest: ~"{{ item }}"/.rhosts
+  with_items: "{{ users.stdout_lines }}"
   tags:
       - cat1
       - high
